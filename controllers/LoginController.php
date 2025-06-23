@@ -54,8 +54,28 @@ class LoginController {
     }
 
     public static function olvide(Router $router) {
-        $router->render('auth/olvide-password', [
+        $alertas = [];
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $auth = new Usuario($_POST);
+            $alertas = $auth->validarEmail();
+            if(empty($alertas)) {
+                $usuario = Usuario::where('email', $auth->email);
+                
+                if($usuario && $usuario->confirmado === '1') {
+                    // Generar un nuevo token
+                    $usuario->crearToken();
+                    $usuario->guardar();
+                    // Enviar el E-mail
+                    Usuario::setAlerta('exito', 'Hemos enviado las instrucciones a tu E-mail');
+                } else{
+                    Usuario::setAlerta('error', 'El Usuario no existe o no esta confirmado');
+                }
+            }
+        }
+        $alertas = Usuario::getAlertas();
 
+        $router->render('auth/olvide-password', [
+            'alertas' => $alertas
         ]);
     }
 
