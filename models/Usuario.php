@@ -49,7 +49,7 @@ class Usuario extends ActiveRecord {
             self::$alertas['error'] [] = 'La Contraseña es Obligatorio';
         }
         if(strlen($this->password) < 6) {
-            self::$alertas['error'] [] = 'la contraseña debe contener al menos 6 caracteres';
+            self::$alertas['error'] [] = 'La Contraseña debe contener al menos 6 caracteres';
         }
        
 
@@ -62,7 +62,7 @@ class Usuario extends ActiveRecord {
         }
 
         if(!$this->password) {
-            self::$alertas['error'] [] = 'La Contraseña es Obligatorio';
+            self::$alertas['error'] [] = 'La Contraseña es Obligatoria';
         }
         return self::$alertas;
     }
@@ -70,6 +70,16 @@ class Usuario extends ActiveRecord {
     public function validarEmail() {
         if(!$this->email) {
             self::$alertas['error'] [] = 'El E-mail es Obligatorio';
+        }
+        return self::$alertas;
+    }
+
+    public function validarPassword() {
+        if(!$this->password) {
+            self::$alertas['error'] [] = 'La contraseña es Obligatoria';
+        }
+        if(strlen($this->password) < 6) {
+            self::$alertas['error'] [] = 'La contraseña debe contener al menos 6 caracteres';
         }
         return self::$alertas;
     }
