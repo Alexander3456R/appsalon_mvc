@@ -26,8 +26,9 @@
 
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input id="fecha" type="date">
+                <input id="fecha" type="date" min="<?php echo date('Y-m-d') ?>">
             </div>
+            
 
             <div class="campo">
                 <label for="hora">Hora</label>
@@ -36,7 +37,7 @@
         </form>
     </div>
 
-    <div id="paso-3" class="seccion">
+    <div id="paso-3" class="seccion contenido-resumen">
         <h2>Resumen</h2>
         <p class="text-center">Revisa que todo esté correcto</p>
     </div>
