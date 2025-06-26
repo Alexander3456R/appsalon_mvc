@@ -1,7 +1,9 @@
 let paso = 1;
 const pasoIncial = 1;
 const pasoFinal = 3;
+
 const cita = {
+    id: '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -19,6 +21,7 @@ function iniciarApp() {
     paginaSiguiente(); // Agrega el evento al boton siguiente
     paginaAnterior(); // Agrega el evento al boton anterior
     consultarAPI(); // Consulta la API en el backend de PHP
+    idCliente(); // Añade el id del cliente al objeto cita
     nombreCliente(); // Añade el nombre del cliente al objeto cita
     seleccionarFecha(); // Añade la fecha de la cita al objeto cita
     seleccionarHora(); // Añade la hora de la cita al objeto cita
@@ -152,6 +155,11 @@ function seleccionarServicio(servicio) {
 
     
     
+}
+
+function idCliente() {
+    cita.id = document.querySelector('#id').value;
+
 }
 
 function nombreCliente() {
@@ -288,6 +296,49 @@ function mostrarReseumen() {
     resumen.appendChild(botonReservar);
 }
 
-function reservarCita() {
+async function reservarCita() {
+    const {nombre, fecha, hora, servicios, id} = cita;
 
+    const idServicios = servicios.map(servicio => servicio.id);
+    // console.log(idServicios);
+
+    const datos = new FormData();
+    datos.append('fecha', fecha);
+    datos.append('hora', hora);
+    datos.append('usuarioId', id);
+    datos.append('servicios', idServicios);
+
+    try {
+         // Peticion a la API
+    const url = 'http://localhost:3000/api/citas';
+    const respuesta = await fetch(url, {
+        method: 'POST',
+        body: datos
+    });
+
+
+    const resultado = await respuesta.json();
+
+    if(resultado.resultado) {
+        Swal.fire({
+        icon: "success",
+        title: "Cita Creada",
+        text: "Tu cita fue creada correctamente!",
+        button: 'OK'
+        }).then(() => {
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        })
+    }
+    } catch (error) {
+        Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al guardar la cita!",
+        });
+    }
+
+   
 }
+
