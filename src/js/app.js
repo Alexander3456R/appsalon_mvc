@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function iniciarApp() {
+    const tienePasos = document.querySelector('#paso-1');
+    if (!tienePasos) return;
     mostrarSeccion(); // Muestra la seccion del paso actual
     tabs(); // Cambia las secciones al dar click en los tabs
     botonesPaginador(); // Agrega o quita los botones de paginacion
@@ -342,3 +344,39 @@ async function reservarCita() {
    
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.tipoAlerta !== 'undefined') {
+        switch(window.tipoAlerta) {
+            case 'creacion':
+                Swal.fire({
+                    title: "Servicio creado",
+                    icon: "success",
+                    text: "El servicio fue añadido correctamente",
+                    confirmButtonText: "OK"
+                });
+                break;
+            case 'actualizacion':
+                Swal.fire({
+                    title: "Servicio actualizado",
+                    icon: "success",
+                    text: "El servicio fue actualizado correctamente",
+                    confirmButtonText: "OK"
+                });
+                break;
+            case 'eliminacion':
+                Swal.fire({
+                    title: "Servicio eliminado",
+                    icon: "success",
+                    text: "El servicio fue eliminado correctamente",
+                    confirmButtonText: "OK"
+                });
+                break;
+            case 'cita_eliminada':
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cita eliminada correctamente'
+                });
+                break;
+        }
+    }
+});

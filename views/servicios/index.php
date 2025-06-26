@@ -21,42 +21,17 @@
         </li>
     <?php } ?>
 </ul>
-<?php if(isset($_SESSION['exito_actualizacion'])): ?>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-            title: "Servicio actualizado",
-            icon: "success",
-            text: "El servicio fue actualizado correctamente",
-            confirmButtonText: "OK"
-        });
-    </script>
-    <?php unset($_SESSION['exito_actualizacion']); ?>
-<?php endif; ?>
 
 <?php if(isset($_SESSION['exito_creacion'])): ?>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-            title: "Servicio creado",
-            icon: "success",
-            text: "El servicio fue añadido correctamente",
-            confirmButtonText: "OK"
-        });
-    </script>
+    <script>window.tipoAlerta = 'creacion';</script>
     <?php unset($_SESSION['exito_creacion']); ?>
-<?php endif; ?>
-
-
-<?php if(isset($_SESSION['exito_eliminacion'])): ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-            title: "Servicio eliminado",
-            icon: "success",
-            text: "El servicio fue eliminado correctamente",
-            confirmButtonText: "OK"
-        });
-    </script>
+<?php elseif(isset($_SESSION['exito_actualizacion'])): ?>
+    <script>window.tipoAlerta = 'actualizacion';</script>
+    <?php unset($_SESSION['exito_actualizacion']); ?>
+<?php elseif(isset($_SESSION['exito_eliminacion'])): ?>
+    <script>window.tipoAlerta = 'eliminacion';</script>
     <?php unset($_SESSION['exito_eliminacion']); ?>
 <?php endif; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/build/js/app.js"></script>

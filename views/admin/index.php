@@ -69,3 +69,10 @@
 <?php 
     $script = "<script src='build/js/buscador.js'></script>" 
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/build/js/app.js"></script>
+
+<?php if(isset($_SESSION['cita_eliminada'])): ?>
+    <script>window.tipoAlerta = 'cita_eliminada';</script>
+    <?php unset($_SESSION['cita_eliminada']); ?>
+<?php endif; ?>
