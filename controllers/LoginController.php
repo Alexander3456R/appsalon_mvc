@@ -88,7 +88,7 @@ class LoginController {
         $alertas = [];
         $error = false;
 
-        $token = s($_GET['token']);
+        $token = isset($_GET['token']) ? s($_GET['token']) : '';
         
         // Buscar el usuario por token
         $usuario = Usuario::where('token', $token);
@@ -110,7 +110,7 @@ class LoginController {
                 $usuario->token = null;
                 $resultado = $usuario->guardar();
                 if($resultado) {
-                    header('Location: /');
+                    header('Location: /recuperar?exito=1');
                 }
 
             }

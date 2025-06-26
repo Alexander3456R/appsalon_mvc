@@ -17,3 +17,17 @@
     <a href="/">¿Ya tienes cuenta? Iniciar Sesión</a>
     <a href="/crear-cuenta">¿Aún no tienes una cuenta? Crear una</a>
 </div>
+
+<?php if(isset($_GET['exito']) && $_GET['exito'] === '1'): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Contraseña actualizada',
+            text: 'Tu contraseña fue cambiada exitosamente.',
+            confirmButtonText: 'Iniciar sesión'
+        }).then(() => {
+            window.location.href = '/';
+        });
+    </script>
+<?php endif; ?>
