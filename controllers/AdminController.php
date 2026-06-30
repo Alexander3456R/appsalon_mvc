@@ -13,7 +13,7 @@ class AdminController {
         $fechas = explode('-', $fecha);
 
         if(!checkdate($fechas[1], $fechas[2], $fechas[0])) {
-            header('Location: /404');
+            header('Location: /admin');
         }
 
        
@@ -28,7 +28,7 @@ class AdminController {
         $consulta .= " ON citasservicios.citaId=citas.id ";
         $consulta .= " LEFT OUTER JOIN servicios ";
         $consulta .= " ON servicios.id=citasservicios.servicioId ";
-        $consulta .= " WHERE fecha =  '${fecha}' ";
+        $consulta .= " WHERE fecha =  '" . $fecha . "' ";
 
         $citas = AdminCita::SQL($consulta);
         

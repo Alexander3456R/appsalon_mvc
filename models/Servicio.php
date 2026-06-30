@@ -1,8 +1,6 @@
 <?php
 namespace Model;
 
-use Model\ActiveRecord;
-
 class Servicio extends ActiveRecord {
     // Base de datos
     protected static $tabla = 'servicios';

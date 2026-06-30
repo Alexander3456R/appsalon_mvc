@@ -270,15 +270,9 @@ function mostrarReseumen() {
     nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
 
     // Formatear la fecha y hora
-    const fechaObj = new Date(fecha);
-    const mes = fechaObj.getMonth();
-    const dia = fechaObj.getDate() + 2; // Se suma 2 para evitar el desfase de la zona horaria
-    const year = fechaObj.getFullYear();
-
-    const fechaUTC = new Date(Date.UTC(year, mes, dia)); 
-
+    const fechaObj = new Date(fecha + 'T12:00:00');
     const opciones = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-    const fechaFormateada = fechaUTC.toLocaleDateString('es-CO', opciones);
+    const fechaFormateada = fechaObj.toLocaleDateString('es-CO', opciones);
 
     const fechaCita = document.createElement('P');
     fechaCita.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`;

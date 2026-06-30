@@ -45,7 +45,10 @@ class ServicioController {
     public static function actualizar(Router $router) {
         session_start();
         isAdmin();
-        if(!is_numeric($_GET['id'])) return;
+        if(!is_numeric($_GET['id'])) {
+            header('Location: /servicios');
+            return;
+        }
         $servicio = Servicio::find($_GET['id']);
         $alertas = [];
         if($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -27,12 +27,12 @@ class Email {
         $mail->Password = $_ENV['EMAIL_PASS'];
 
         $mail->setFrom('cuentas@appsalon.com');
-        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->addAddress($this->email, $this->nombre);
         $mail->Subject = 'Confirma tu cuenta!';
 
         // Set HTML
         $mail->isHTML(TRUE);
-        $mail->CharSet = 'UFT-8';
+        $mail->CharSet = 'UTF-8';
 
         $contenido = "<html>";
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong>, has creado tu cuenta en AppSalon, solo debes confirmarla dando click al siguiente enlace.</p>";
@@ -57,12 +57,12 @@ class Email {
         $mail->Password = $_ENV['EMAIL_PASS'];
 
         $mail->setFrom('cuentas@appsalon.com');
-        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->addAddress($this->email, $this->nombre);
         $mail->Subject = 'Reestablece tu password!';
 
         // Set HTML
         $mail->isHTML(TRUE);
-        $mail->CharSet = 'UFT-8';
+        $mail->CharSet = 'UTF-8';
 
         $contenido = "<html>";
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong>, has solicitado reestablecer tu contraseña en AppSalon, solo debes reestablecerlo dando click al siguiente enlace.</p>";

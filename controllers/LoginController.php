@@ -9,6 +9,13 @@ use Classes\Email;
 class LoginController {
     public static function login(Router $router) {
         $alertas = [];
+        $passwordReset = false;
+
+        session_start();
+        if(isset($_SESSION['password_reset'])) {
+            $passwordReset = true;
+            unset($_SESSION['password_reset']);
+        }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $auth = new Usuario($_POST);
@@ -22,7 +29,6 @@ class LoginController {
                     // Verificar el password
                     if($usuario->comprobarPasswordAndVerificado($auth->password)) {
                         // Autenticar al usuario
-                        session_start();
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
@@ -45,7 +51,8 @@ class LoginController {
         $alertas = Usuario::getAlertas();
 
         $router->render('auth/login', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'passwordReset' => $passwordReset
         ]);
     }
 
@@ -99,6 +106,7 @@ class LoginController {
         }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            session_start();
             // Leer la nueva contraseña y guardarla
             $password = new Usuario($_POST);
             $alertas = $password->validarPassword();
@@ -110,7 +118,8 @@ class LoginController {
                 $usuario->token = null;
                 $resultado = $usuario->guardar();
                 if($resultado) {
-                    header('Location: /recuperar?exito=1');
+                    $_SESSION['password_reset'] = true;
+                    header('Location: /');
                 }
 
             }
@@ -152,7 +161,7 @@ class LoginController {
                     // Crear el usuario
                     $resultado = $usuario->guardar();
                     if($resultado) {
-                        Header('Location: /mensaje');
+                        header('Location: /mensaje');
                     }
                                    
                 }

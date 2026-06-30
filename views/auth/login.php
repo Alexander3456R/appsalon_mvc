@@ -34,3 +34,15 @@
     <a href="/crear-cuenta">¿Aún no tienes una cuenta? Crea una!</a>
     <a href="/olvide">¿Olvidaste tu contraseña?</a>
 </div>
+
+<?php if($passwordReset): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Contraseña actualizada',
+            text: 'Tu contraseña fue cambiada exitosamente. Ahora puedes iniciar sesión.',
+            confirmButtonText: 'OK'
+        });
+    </script>
+<?php endif; ?>
